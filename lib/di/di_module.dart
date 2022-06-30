@@ -20,7 +20,7 @@ import 'package:on_ground/utils/shared_pref.dart';
 
 final getIt = GetIt.instance;
 
-void setup(){
+void setup() {
   getIt.registerSingleton<SharedPref>(SharedPref());
   Dio dio = Dio();
 
@@ -29,34 +29,32 @@ void setup(){
   //production build
   //getIt.registerSingleton<RestClient>(RestClient(getIt(),baseUrl: BaseUrlEnum.admin.getBaseUrl()));
   //staging build
-  getIt.registerSingleton<RestClient>(RestClient(getIt(),baseUrl: BaseUrlEnum.admin.getBaseUrl()));
+  getIt.registerSingleton<RestClient>(
+      RestClient(getIt(), baseUrl: BaseUrlEnum.staging.getBaseUrl()));
+
   ///register repository classes
-  getIt.registerFactory<IUserRepository>(() => UserRepository(restClient:getIt<RestClient>()));
-  getIt.registerFactory<IWhitelistRepository>(() => WhitelistRepository(restClient:getIt<RestClient>() ));
-  getIt.registerFactory<IDashboradRepository>(() => DashboradRepository(restClient: getIt()));
-  getIt.registerFactory<ICityRepository>(()=> CityRepository(restClient: getIt()));
+  getIt.registerFactory<IUserRepository>(
+      () => UserRepository(restClient: getIt<RestClient>()));
+  getIt.registerFactory<IWhitelistRepository>(
+      () => WhitelistRepository(restClient: getIt<RestClient>()));
+  getIt.registerFactory<IDashboradRepository>(
+      () => DashboradRepository(restClient: getIt()));
+  getIt.registerFactory<ICityRepository>(
+      () => CityRepository(restClient: getIt()));
+
   ///Reg bloc classes
   getIt.registerFactory<SplashCubit>(() => SplashCubit());
-  getIt.registerFactory<LoginCubit>(() => LoginCubit(
-      userRepository: getIt()
-    )
-  );
-  getIt.registerFactory<OtpBloc>(() => OtpBloc(
-    userRepository: getIt()
-  ));
+  getIt.registerFactory<LoginCubit>(() => LoginCubit(userRepository: getIt()));
+  getIt.registerFactory<OtpBloc>(() => OtpBloc(userRepository: getIt()));
   getIt.registerFactory<DashboardCubit>(() => DashboardCubit());
-  getIt.registerFactory<HomeCubit>(() => HomeCubit(dashboradRepository: getIt()));
-  getIt.registerFactory<WhiteListBrokerCubit>(() => WhiteListBrokerCubit(
-    repository: getIt()
-  ));
+  getIt.registerFactory<HomeCubit>(
+      () => HomeCubit(dashboradRepository: getIt()));
+  getIt.registerFactory<WhiteListBrokerCubit>(
+      () => WhiteListBrokerCubit(repository: getIt()));
   getIt.registerFactory<Profile>(() => Profile());
-  getIt.registerFactory<SearchCubit>(() => SearchCubit(
-    repository: getIt()
-  ));
+  getIt.registerFactory<SearchCubit>(() => SearchCubit(repository: getIt()));
 
-  getIt.registerFactory<DetailsCubit>(() => DetailsCubit(
-    repository: getIt()
-  ));
+  getIt.registerFactory<DetailsCubit>(() => DetailsCubit(repository: getIt()));
 
   ///Widget cubit
   getIt.registerFactory<CityButtonCubit>(() => CityButtonCubit());
